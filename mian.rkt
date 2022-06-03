@@ -27,8 +27,8 @@
            info)))
 
 (define mkSection
-  (lambda (index title)
-    (slide #:layout 'center index title)))
+  (lambda (index title #:layout [layout 'center])
+    (slide #:layout layout index title)))
 
 (define ct
   (lambda (content [style 'roman] [size (current-font-size)])
