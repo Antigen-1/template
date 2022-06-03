@@ -1,5 +1,5 @@
 #lang racket/base
-(require slideshow/base pict pict/shadow)
+(require slideshow/base pict)
 (provide mkDiagram current-aspect mkOutline mkCover mkSection ct)
 
 (define current-aspect (make-parameter #f))
@@ -20,13 +20,11 @@
      (apply item items))))
 
 (define mkCover
-  (lambda (#:title title #:line [line #t] #:shadow [shadow #t] #:layout [layout 'center] #:info info)
+  (lambda (#:title title #:line [line #t] #:layout [layout 'center] #:info info)
     (slide #:layout layout
            title
            (if line (hline (current-para-width) (current-gap-size)) 'nothing)
-           (if shadow
-               (shadow-frame info)
-               (frame info)))))
+           info)))
 
 (define mkSection
   (lambda (index title)
