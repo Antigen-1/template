@@ -27,9 +27,10 @@
            info)))
 
 (define mkSection
-  (lambda (index title #:layout [layout 'center])
+  (lambda (#:index index #:title title #:layout [layout 'center])
     (slide #:layout layout index title)))
 
 (define ct
-  (lambda (content [style 'roman] [size (current-font-size)])
-    (text content style size)))
+  (lambda (content [style 'roman] [size (current-font-size)] [color #f])
+    (let ((pict (text content style size)))
+      (if color (colorize pict color) pict))))
