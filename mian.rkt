@@ -31,5 +31,5 @@
     (slide #:layout 'center index title)))
 
 (define ct
-  (lambda (content [size (current-font-size)])
-    (text content 'roman size)))
+  (lambda (content [style 'roman] [size (current-font-size)])
+    (text content style size)))
