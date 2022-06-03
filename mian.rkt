@@ -1,6 +1,6 @@
 #lang racket/base
 (require slideshow/base pict pict/shadow)
-(provide mkDiagram current-aspect mkOutline)
+(provide mkDiagram current-aspect mkOutline mkCover mkSection ct)
 
 (define current-aspect (make-parameter #f))
 
@@ -27,3 +27,11 @@
            (if shadow
                (shadow-frame info)
                (frame info)))))
+
+(define mkSection
+  (lambda (index title)
+    (slide #:layout 'center index title)))
+
+(define ct
+  (lambda (content [size (current-font-size)])
+    (text content 'roman size)))
