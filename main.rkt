@@ -36,3 +36,15 @@
     (lambda (content [style 'roman] [size (current-font-size)] [color #f])
       (let ((pict (text content style size)))
         (if color (colorize pict color) pict)))))
+
+(module mind-map racket/base
+  (require pict)
+  (provide mkElement mkLine)
+
+  (define mkElement
+    (lambda (#:border-color [color "firebrick"] #:pict pict #:scale [s 5] #:line-width [lw 1])
+      (explain pict #:border color #:baseline #f #:ascent #f #:scale s #:line-width lw)))
+  (define mkLine
+    (lambda (#:pict pict #:src src #:dest dest #:src-finder src-finder #:dest-finder dest-finder #:constructor constructor)
+      (constructor pict src src-finder dest dest-finder)))
+  )
