@@ -1,6 +1,6 @@
 #lang racket/base
 
-(module slideshow racket/base
+(module base racket/base
   (require slideshow/base pict)
   (provide mkDiagram current-aspect mkOutline mkCover mkSection ct)
 
@@ -38,8 +38,8 @@
         (if color (colorize pict color) pict)))))
 
 (module mind-map racket/base
-  (require pict)
-  (provide mkElement mkLine)
+  (require pict racket/function)
+  (provide mkElement mkLine mkConstructor)
 
   (define mkElement
     (lambda (#:border-color [color "firebrick"] #:pict pict #:scale [s 5] #:line-width [lw 1])
@@ -47,4 +47,11 @@
   (define mkLine
     (lambda (#:pict pict #:src src #:dest dest #:src-finder src-finder #:dest-finder dest-finder #:constructor constructor)
       (constructor pict src src-finder dest dest-finder)))
-  )
+  (define mkConstructor
+    (lambda (#:procedure procedure #:style [style #f] #:under? [under? #f] #:label [label (blank)] #:start-angle [start-angle #f]
+             #:end-angle [end-angle #f] #:start-pull [start-pull 1/4] #:end-pull [end-pull 1/4]	#:line-width [line-width #f]
+             #:color [color #f] . other)
+      (apply (curry procedure)
+             #:style style #:under? under? #:label label #:start-angle start-angle
+             #:end-angle end-angle #:start-pull start-pull #:end-pull end-pull	#:line-width line-width
+             #:color color other))))
